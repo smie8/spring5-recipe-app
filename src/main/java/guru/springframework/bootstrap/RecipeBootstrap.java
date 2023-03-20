@@ -9,16 +9,18 @@ import guru.springframework.domain.UnitOfMeasure;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -30,6 +32,13 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         this.categoryRepository = categoryRepository;
         this.recipeRepository = recipeRepository;
         this.unitOfMeasureRepository = unitOfMeasureRepository;
+    }
+
+    @Override
+    @Transactional // we want everything to be run in transaction so we'll avoid thing like lazy init errors
+    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        recipeRepository.saveAll(getRecipes());
+        log.info("Loading Bootstrap data.");
     }
 
     private List<Recipe> getRecipes() {
@@ -200,12 +209,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
     private void throwErrorIfUnitOfMeasureOptionalNotFound(Optional<UnitOfMeasure> teaspoonUnitOfMeasureOptional) {
         if (!teaspoonUnitOfMeasureOptional.isPresent()) {
+            log.error("Expected Unit of Measure not found.");
             throw new RuntimeException("Expected Unit of Measure not found.");
         }
-    }
-
-    @Override
-    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        recipeRepository.saveAll(getRecipes());
     }
 }
