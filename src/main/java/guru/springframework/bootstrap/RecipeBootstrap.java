@@ -46,6 +46,9 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         List<Recipe> recipes = new ArrayList<>(2);
 
         // get unit of measures
+        Optional<UnitOfMeasure> eachUnitOfMeasureOptional = unitOfMeasureRepository.findByDescription("Each");
+        throwErrorIfUnitOfMeasureOptionalNotFound(eachUnitOfMeasureOptional);
+
         Optional<UnitOfMeasure> teaspoonUnitOfMeasureOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
         throwErrorIfUnitOfMeasureOptionalNotFound(teaspoonUnitOfMeasureOptional);
 
@@ -65,6 +68,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         throwErrorIfUnitOfMeasureOptionalNotFound(pintUnitOfMeasureOptional);
 
         // get optionals
+        UnitOfMeasure each = eachUnitOfMeasureOptional.get();
         UnitOfMeasure teaspoon = teaspoonUnitOfMeasureOptional.get();
         UnitOfMeasure tablespoon = tablespoonUnitOfMeasureOptional.get();
         UnitOfMeasure cup = cupUnitOfMeasureOptional.get();
@@ -128,16 +132,16 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         perfectGuacamole.getCategories().add(american);
         perfectGuacamole.getCategories().add(mexican);
 
-        perfectGuacamole.addIngredient(new Ingredient("ripe avocados", new BigDecimal(2)));
-        perfectGuacamole.addIngredient(new Ingredient("kosher salt", new BigDecimal(1/4), tablespoon));
+        perfectGuacamole.addIngredient(new Ingredient("ripe avocados", new BigDecimal(2), each));
+        perfectGuacamole.addIngredient(new Ingredient("kosher salt", new BigDecimal(0.25), tablespoon));
         perfectGuacamole.addIngredient(new Ingredient("fresh lime or lemon juice", new BigDecimal(1), tablespoon));
         perfectGuacamole.addIngredient(new Ingredient("minced red onion or thinly sliced green onion", new BigDecimal(4), tablespoon));
-        perfectGuacamole.addIngredient(new Ingredient("serrano or jalapeno chilis, stems and seeds removed, minced", new BigDecimal(2)));
+        perfectGuacamole.addIngredient(new Ingredient("serrano or jalapeno chilis, stems and seeds removed, minced", new BigDecimal(2), each));
         perfectGuacamole.addIngredient(new Ingredient("cilantro (leaves and tender stems), finely chopped", new BigDecimal(2), tablespoon));
         perfectGuacamole.addIngredient(new Ingredient("freshluy ground black pepper", new BigDecimal(1), pinch));
-        perfectGuacamole.addIngredient(new Ingredient("ripe tomato, chopped (optional)", new BigDecimal(1/2)));
-        perfectGuacamole.addIngredient(new Ingredient("red radish or jicama slices for garnish", new BigDecimal(0)));
-        perfectGuacamole.addIngredient(new Ingredient("tortilla chips", new BigDecimal(0)));
+        perfectGuacamole.addIngredient(new Ingredient("ripe tomato, chopped (optional)", new BigDecimal(0.5), each));
+        perfectGuacamole.addIngredient(new Ingredient("red radish or jicama slices for garnish", new BigDecimal(1), each));
+        perfectGuacamole.addIngredient(new Ingredient("tortilla chips", new BigDecimal(1), each));
 
         recipes.add(perfectGuacamole);
 
@@ -184,31 +188,31 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         spicyGrilledChickenTacos.addIngredient(new Ingredient("dried oregano", new BigDecimal(1), teaspoon));
         spicyGrilledChickenTacos.addIngredient(new Ingredient("dried cumin", new BigDecimal(1), teaspoon));
         spicyGrilledChickenTacos.addIngredient(new Ingredient("sugar", new BigDecimal(1), teaspoon));
-        spicyGrilledChickenTacos.addIngredient(new Ingredient("kosher salt", new BigDecimal(1/2), teaspoon));
-        spicyGrilledChickenTacos.addIngredient(new Ingredient("clove garlic, finely chopped", new BigDecimal(1)));
+        spicyGrilledChickenTacos.addIngredient(new Ingredient("kosher salt", new BigDecimal(0.5), teaspoon));
+        spicyGrilledChickenTacos.addIngredient(new Ingredient("clove garlic, finely chopped", new BigDecimal(1), each));
         spicyGrilledChickenTacos.addIngredient(new Ingredient("finely grated orange zest", new BigDecimal(1), tablespoon));
         spicyGrilledChickenTacos.addIngredient(new Ingredient("fresh-squeezed orange juice", new BigDecimal(3), tablespoon));
         spicyGrilledChickenTacos.addIngredient(new Ingredient("olive oil", new BigDecimal(2), tablespoon));
-        spicyGrilledChickenTacos.addIngredient(new Ingredient("skinless, boneless chicken thighs", new BigDecimal(6)));
+        spicyGrilledChickenTacos.addIngredient(new Ingredient("skinless, boneless chicken thighs", new BigDecimal(6), each));
 
-        spicyGrilledChickenTacos.addIngredient(new Ingredient("small corn tortillas", new BigDecimal(8)));
+        spicyGrilledChickenTacos.addIngredient(new Ingredient("small corn tortillas", new BigDecimal(8), each));
         spicyGrilledChickenTacos.addIngredient(new Ingredient("packed baby arugula", new BigDecimal(3), cup));
-        spicyGrilledChickenTacos.addIngredient(new Ingredient("medium ripe avocados, sliced", new BigDecimal(2)));
-        spicyGrilledChickenTacos.addIngredient(new Ingredient("radishes, thinly sliced", new BigDecimal(4)));
-        spicyGrilledChickenTacos.addIngredient(new Ingredient("cherry tomatoes, halved", new BigDecimal(1/2), pint));
-        spicyGrilledChickenTacos.addIngredient(new Ingredient("red onion, thinly sliced", new BigDecimal(1/4)));
-        spicyGrilledChickenTacos.addIngredient(new Ingredient("roughly chopped cilantro", new BigDecimal(1)));
-        spicyGrilledChickenTacos.addIngredient(new Ingredient("sour cream", new BigDecimal(1/2), cup));
-        spicyGrilledChickenTacos.addIngredient(new Ingredient("milk", new BigDecimal(1/4), cup));
-        spicyGrilledChickenTacos.addIngredient(new Ingredient("lime, cut into wedges", new BigDecimal(1)));
+        spicyGrilledChickenTacos.addIngredient(new Ingredient("medium ripe avocados, sliced", new BigDecimal(2), each));
+        spicyGrilledChickenTacos.addIngredient(new Ingredient("radishes, thinly sliced", new BigDecimal(4), each));
+        spicyGrilledChickenTacos.addIngredient(new Ingredient("cherry tomatoes, halved", new BigDecimal(0.5), pint));
+        spicyGrilledChickenTacos.addIngredient(new Ingredient("red onion, thinly sliced", new BigDecimal(0.25), each));
+        spicyGrilledChickenTacos.addIngredient(new Ingredient("roughly chopped cilantro", new BigDecimal(1), each));
+        spicyGrilledChickenTacos.addIngredient(new Ingredient("sour cream", new BigDecimal(0.5), cup));
+        spicyGrilledChickenTacos.addIngredient(new Ingredient("milk", new BigDecimal(0.25), cup));
+        spicyGrilledChickenTacos.addIngredient(new Ingredient("lime, cut into wedges", new BigDecimal(1), each));
 
         recipes.add(spicyGrilledChickenTacos);
 
         return recipes;
     }
 
-    private void throwErrorIfUnitOfMeasureOptionalNotFound(Optional<UnitOfMeasure> teaspoonUnitOfMeasureOptional) {
-        if (!teaspoonUnitOfMeasureOptional.isPresent()) {
+    private void throwErrorIfUnitOfMeasureOptionalNotFound(Optional<UnitOfMeasure> unitOfMeasureOptional) {
+        if (!unitOfMeasureOptional.isPresent()) {
             log.error("Expected Unit of Measure not found.");
             throw new RuntimeException("Expected Unit of Measure not found.");
         }
