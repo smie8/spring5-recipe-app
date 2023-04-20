@@ -3,19 +3,43 @@
     <head>
         <meta charset="UTF-8">
         <title>Recipe Name</title>
+
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <h1>My Recipes</h1>
+        <div class="container-fluid" style="margin-top: 20px">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="panel panel-primary">
 
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Description</th>
-            </tr>
-            <tr th:each="recipe:${recipes}">
-                <td th:text="${recipe.id}">313</td>
-                <td th:text="${recipe.description}">Delicious</td>
-            </tr>
-        </table>
+                        <div class="panel-heading">
+                            <h1 class="panel-title">My Recipes!</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
+                                <table class="table table-hover ">
+                                    <thead class="thead-inverse">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Description</th>
+                                        <th>View</th>
+                                    </tr>
+                                    </thead>
+                                    </tr>
+                                    <tr th:each="recipe : ${recipes}">
+                                        <!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
+                                        <td th:text="${recipe.id}">id</td>
+                                        <td th:text="${recipe.description}">description</td>
+                                        <td><a href="#" th:href="@{'/recipe/show/' + ${recipe.id}}">view</a></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
