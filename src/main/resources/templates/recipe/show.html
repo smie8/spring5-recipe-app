@@ -10,14 +10,13 @@
     <script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
-
+<!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
     <div class="container" style="margin-top: 20px">
 
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
                         <h1 class="panel-title text-center" th:text="${recipe.description}">placeholder for description</h1>
                     </div>
 
@@ -27,7 +26,6 @@
                                 <h5>Categories:</h5>
                             </div>
                             <div class="col-md-9">
-                                <!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
                                 <ul class="list-unstyled">
                                     <li class="category"
                                         th:each="category : ${recipe.categories}"
@@ -40,7 +38,6 @@
                                 <h5>Prep Time:</h5>
                             </div>
                             <div class="col-md-3">
-                                <!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
                                 <p th:text="${recipe.prepTime} + ' Min'">placeholder for preptime</p>
                             </div>
                             <div class="col-md-3">
@@ -88,7 +85,6 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul class="list-unstyled">
-                                        <!--/*@thymesVar id="ingredient" type="guru.springframework.domain.Ingredient"*/-->
                                         <li class="category"
                                             th:each="ingredient : ${recipe.ingredients}"
                                             th:text="${ingredient.getAmount()
