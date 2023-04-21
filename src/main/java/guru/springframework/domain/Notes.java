@@ -22,6 +22,6 @@ public class Notes {
     @OneToOne
     private Recipe recipe;
 
-    @Lob // allow users to put in more than 255 chars into db
+    @Lob // allows users to put in more than 255 chars into db
     private String recipeNotes;
 }

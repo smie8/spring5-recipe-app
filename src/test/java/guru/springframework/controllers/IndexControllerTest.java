@@ -5,7 +5,6 @@ import guru.springframework.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,16 +24,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 public class IndexControllerTest {
 
-    IndexController indexController;
-
     @Mock
     RecipeService recipeService;
     @Mock
     Model model;
 
+    IndexController indexController;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+
         indexController = new IndexController(recipeService);
     }
 
