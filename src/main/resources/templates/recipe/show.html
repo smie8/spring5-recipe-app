@@ -96,7 +96,7 @@
                                         <li class="category"
                                             th:each="ingredient : ${recipe.ingredients}"
                                             th:text="${ingredient.getAmount()
-                                            + ' ' + ingredient.unitOfMeasure.getDescription()
+                                            + ' ' + ingredient.getUom.getDescription()
                                             + ' of '+ ingredient.getDescription()}">placeholder for ingredient</li>
                                     </ul>
                                 </div>
