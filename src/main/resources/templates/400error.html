@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>404 Not Found Error</title>
+    <title>400 Bad Request Error</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -20,8 +20,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <h1>404 Error</h1>
-                <p th:text="${exception.getMessage()}">Sorry, the page you are looking for is not found.</p>
+                <h1>400 Error</h1>
+                <p th:text="${exception.getMessage()}">Number Format Error</p>
             </div>
         </div>
     </div>
