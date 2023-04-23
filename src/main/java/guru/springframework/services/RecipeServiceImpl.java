@@ -44,12 +44,6 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe findById(Long id) {
-
-        if (!(id instanceof Long)) {
-            String message = String.format("Number format error (id was:  %d)", id);
-            throw new NumberFormatException(message);
-        }
-
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
         if (!recipeOptional.isPresent()) {
